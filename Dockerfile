@@ -28,5 +28,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD pgrep -f "deno run" || exit 1
 
 # Run the application
-ENTRYPOINT ["deno", "run", "--allow-net", "--allow-env", "--allow-read", "src/main.ts"]
+ENTRYPOINT ["deno", "run", "--allow-net", "--allow-env", "--allow-read", "--unsafely-ignore-certificate-errors", "src/main.ts"]
 

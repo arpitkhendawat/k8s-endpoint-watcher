@@ -126,9 +126,6 @@ class KubeClient {
     return await fetch(url, {
       ...options,
       headers,
-      // Skip TLS verification for in-cluster communication
-      // @ts-ignore - Deno specific
-      client: { tlsSkipVerify: true },
     });
   }
 
