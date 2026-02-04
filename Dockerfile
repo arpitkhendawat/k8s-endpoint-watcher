@@ -1,22 +1,13 @@
-# Multi-stage Dockerfile for Deno application
-FROM denoland/deno:1.40.0 AS builder
+# Dockerfile for Deno application
+FROM denoland/deno:1.40.0
 
 WORKDIR /app
 
 # Copy source code
 COPY src/ ./src/
 
-# Cache dependencies by running deno cache
+# Cache dependencies
 RUN deno cache src/main.ts
-
-# Final stage - minimal runtime image
-FROM denoland/deno:1.40.0
-
-WORKDIR /app
-
-# Copy cached dependencies and source from builder
-COPY --from=builder /root/.cache/deno /root/.cache/deno
-COPY --from=builder /app/src ./src
 
 # Create non-root user for security
 RUN useradd -m -u 1000 watcher && \
