@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: endpoint-watcher
+  namespace: default  # Change this to your namespace
+  labels:
+    app: endpoint-watcher
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: endpoint-watcher
+  template:
+    metadata:
+      labels:
+        app: endpoint-watcher
+    spec:
+      serviceAccountName: endpoint-watcher
+      
+      containers:
+      - name: watcher
+        image: arpitkhendawat/k8s-endpoint-watcher:latest
+        imagePullPolicy: Always
+        
+        envFrom:
+        - configMapRef:
+            name: endpoint-watcher-config
+        
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        
+        # Security context
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: false
+          capabilities:
+            drop:
+            - ALL
+      
+      # Restart policy
+      restartPolicy: Always
+

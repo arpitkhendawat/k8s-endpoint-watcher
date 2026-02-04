@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: endpoint-watcher-config
+  namespace: default  # Change this to your namespace
+  labels:
+    app: endpoint-watcher
+data:
+  # REQUIRED: Service to watch
+  SERVICE_NAME: "my-app-service"
+  
+  # REQUIRED: Namespace where the service is located
+  NAMESPACE: "production"
+  
+  # REQUIRED: Application root path
+  APP_ROOT: "myapp"
+  
+  # OPTIONAL: Health check interval in seconds (default: 5)
+  CHECK_INTERVAL: "5"
+  
+  # OPTIONAL: HTTP timeout in milliseconds (default: 5000)
+  HTTP_TIMEOUT: "5000"
+  
+  # OPTIONAL: Log level (debug, info, warn, error)
+  LOG_LEVEL: "info"
+

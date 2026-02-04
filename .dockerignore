@@ -1,0 +1,7 @@
+README.md
+k8s/
+.git/
+.gitignore
+*.md
+.DS_Store
+

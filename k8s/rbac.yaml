@@ -1,0 +1,34 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: endpoint-watcher
+  labels:
+    app: endpoint-watcher
+rules:
+  # Permission to watch EndpointSlices
+  - apiGroups: ["discovery.k8s.io"]
+    resources: ["endpointslices"]
+    verbs: ["get", "list", "watch"]
+  
+  # Optional: Permission to read Services (for additional context)
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: endpoint-watcher
+  labels:
+    app: endpoint-watcher
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: endpoint-watcher
+subjects:
+  - kind: ServiceAccount
+    name: endpoint-watcher
+    namespace: default  # Change this to your namespace
+
