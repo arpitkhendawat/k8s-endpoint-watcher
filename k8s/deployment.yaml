@@ -19,7 +19,7 @@ spec:
       
       containers:
       - name: watcher
-        image: arpitkhendawat/k8s-endpoint-watcher:latest
+        image: ghcr.io/arpitkhendawat/k8s-endpoint-watcher:latest
         imagePullPolicy: Always
         
         envFrom:
